@@ -14,15 +14,20 @@
           null
         ]
       },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/mailers/application_mailer.rb": {
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/api/v1/merchants_controller.rb": {
         "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null
+        ]
       },
       "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/models/customer.rb": {
         "lines": [
@@ -32,44 +37,8 @@
         ],
         "branches": {
         }
-      },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/jobs/application_job.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/application_controller.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/channels/application_cable/connection.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/channels/application_cable/channel.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
       }
     },
-    "timestamp": 1661807235
+    "timestamp": 1661814583
   }
 }
