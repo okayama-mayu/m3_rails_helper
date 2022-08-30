@@ -91,4 +91,20 @@ RSpec.describe 'Items API' do
     expect(created_item.description).to eq item_params[:description]
     expect(created_item.unit_price).to eq item_params[:unit_price]
   end
+
+  it 'returns an error if Item is not properly created' do 
+    merchant_id = create(:merchant).id 
+    
+    item_params = ({
+                    name: '', 
+                    description: Faker::Lorem.sentence, 
+                    unit_price: Faker::Commerce.price, 
+                    merchant_id: merchant_id
+                  })
+    headers = { "CONTENT_TYPE" => "application/json" }
+
+    post "/api/v1/items", headers: headers, params: JSON.generate(item: item_params)
+
+    expect(response).to have_http_status(404)
+  end
 end
