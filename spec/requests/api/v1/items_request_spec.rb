@@ -60,6 +60,17 @@ RSpec.describe 'Items API' do
     expect(item_attributes[:merchant_id]).to be_an Integer
   end
 
+  it 'returns an error if item does not exist for show' do 
+    create_list(:item, 5)
+    id = Item.last.id + 1000
+
+    get "/api/v1/items/#{id}"
+
+    item = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to have_http_status(404)
+  end
+
   it 'creates an Item' do 
     merchant_id = create(:merchant).id 
     
@@ -79,5 +90,21 @@ RSpec.describe 'Items API' do
     expect(created_item.name).to eq item_params[:name]
     expect(created_item.description).to eq item_params[:description]
     expect(created_item.unit_price).to eq item_params[:unit_price]
+  end
+
+  it 'returns an error if Item is not properly created' do 
+    merchant_id = create(:merchant).id 
+    
+    item_params = ({
+                    name: '', 
+                    description: Faker::Lorem.sentence, 
+                    unit_price: Faker::Commerce.price, 
+                    merchant_id: merchant_id
+                  })
+    headers = { "CONTENT_TYPE" => "application/json" }
+
+    post "/api/v1/items", headers: headers, params: JSON.generate(item: item_params)
+
+    expect(response).to have_http_status(404)
   end
 end
