@@ -60,6 +60,17 @@ RSpec.describe 'Items API' do
     expect(item_attributes[:merchant_id]).to be_an Integer
   end
 
+  it 'returns an error if item does not exist for show' do 
+    create_list(:item, 5)
+    id = Item.last.id + 1000
+
+    get "/api/v1/items/#{id}"
+
+    item = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to have_http_status(404)
+  end
+
   it 'creates an Item' do 
     merchant_id = create(:merchant).id 
     
