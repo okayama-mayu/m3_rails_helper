@@ -1,5 +1,5 @@
 class Api::V1::ItemsController < ApplicationController 
-  before_action :set_item, only: [:show]
+  before_action :set_item, only: [:show, :update]
 
   def index 
     # render json: Item.all 
@@ -14,6 +14,11 @@ class Api::V1::ItemsController < ApplicationController
   def create
     @item = Item.create!(item_params)
     item_json_response(@item, :created)
+  end
+
+  def update 
+    @item.update!(item_params)
+    head :no_content
   end
 
   private 

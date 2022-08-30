@@ -121,4 +121,15 @@ RSpec.describe 'Items API' do
     expect(item.name).to_not eq(previous_name)
     expect(item.name).to eq(item_params[:name])
   end
+
+  it 'returns an error code if edit is not successful' do 
+    id = create(:item).id 
+    previous_name = Item.last.name 
+    item_params = { name: '' }
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({item: item_params})
+    
+    expect(response).to have_http_status(404)
+  end
 end
