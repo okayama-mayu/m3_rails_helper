@@ -1,8 +1,11 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/models/merchant.rb": {
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/models/item.rb": {
         "lines": [
+          1,
+          1,
+          1,
           1,
           1,
           null,
@@ -17,11 +20,8 @@
           null
         ]
       },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/models/item.rb": {
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/models/merchant.rb": {
         "lines": [
-          1,
-          1,
-          1,
           1,
           1,
           null,
@@ -29,35 +29,22 @@
           null
         ]
       },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/models/customer.rb": {
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/api/v1/merchants_controller.rb": {
         "lines": [
-          0,
+          1,
+          1,
+          1,
           null,
-          0
-        ],
-        "branches": {
-        }
+          null
+        ]
       },
       "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/application_controller.rb": {
         "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/api/v1/merchants_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          null
+        ]
       }
     },
-    "timestamp": 1661820833
+    "timestamp": 1661820899
   }
 }
