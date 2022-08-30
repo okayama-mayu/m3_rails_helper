@@ -5,12 +5,13 @@ class Api::V1::MerchantsController < ApplicationController
     # render json: Merchant.all 
     # render json: MerchantSerializer.new(Merchant.all)
     @merchants = Merchant.all 
-    json_response(@merchants)
+    merchant_json_response(@merchants)
   end
 
   def show 
     # render json: Merchant.find(params[:id])
-    render json: MerchantSerializer.new(Merchant.find(params[:id]))
+    # render json: MerchantSerializer.new(Merchant.find(params[:id]))
+    merchant_json_response(@merchant)
   end
 
   private 
