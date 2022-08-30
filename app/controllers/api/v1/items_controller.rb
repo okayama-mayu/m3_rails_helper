@@ -18,7 +18,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def update 
     @item.update!(item_params)
-    head :no_content
+    item_json_response(@item)
   end
 
   private 

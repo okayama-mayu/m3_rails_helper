@@ -129,7 +129,7 @@ RSpec.describe 'Items API' do
     headers = {"CONTENT_TYPE" => "application/json"}
 
     patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({item: item_params})
-    
+
     expect(response).to have_http_status(404)
   end
 end
