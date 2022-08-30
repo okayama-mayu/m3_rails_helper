@@ -42,4 +42,15 @@ describe 'Merchants API' do
     expect(merchant[:data][:attributes]).to have_key(:name)
     expect(merchant_data[:attributes][:name]).to be_a String 
   end
+
+  it 'returns an error if item does not exist for show' do 
+    create_list(:merchant, 5)
+    id = Merchant.last.id + 1000
+
+    get "/api/v1/merchants/#{id}"
+
+    item = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to have_http_status(404)
+  end
 end
