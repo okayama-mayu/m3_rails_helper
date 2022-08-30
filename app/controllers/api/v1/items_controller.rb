@@ -8,16 +8,12 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-    render json: ItemSerializer.new(Item.find(params[:id]))
+    item_json_response(@item)
   end
 
   def create
-    item = render json: Item.new(item_params)
-    # if item.save 
-    #   render json: ItemSerializer.new(Item.last), status: 201 
-    # else 
-    #   render status: 
-    # end
+    @item = Item.create!(item_params)
+    item_json_response(@item, :created)
   end
 
   private 
