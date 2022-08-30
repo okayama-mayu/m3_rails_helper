@@ -33,7 +33,7 @@
         "lines": [
           1,
           1,
-          null,
+          1,
           null,
           null
         ]
@@ -46,20 +46,18 @@
       },
       "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/api/v1/merchants_controller.rb": {
         "lines": [
-          0,
-          0,
-          0,
-          0,
+          1,
+          1,
+          1,
           null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          null,
+          1,
+          1,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1661823471
+    "timestamp": 1661824187
   }
 }
