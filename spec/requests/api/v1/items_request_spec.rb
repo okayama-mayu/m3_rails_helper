@@ -10,23 +10,25 @@ RSpec.describe 'Items API' do
 
     items = JSON.parse(response.body, symbolize_names: true)
 
-    expect(items.count).to eq 5 
+    items_data = items[:data]
 
-    items.each do |item|
+    expect(items_data.count).to eq 5 
+
+    items_data.each do |item|
       expect(item).to have_key(:id)
-      expect(item[:id]).to be_an Integer 
+      expect(item[:id]).to be_a String 
 
-      expect(item).to have_key(:name)
-      expect(item[:name]).to be_a String 
+      expect(item[:attributes]).to have_key(:name)
+      expect(item[:attributes][:name]).to be_a String 
 
-      expect(item).to have_key(:description)
-      expect(item[:description]).to be_a String 
+      expect(item[:attributes]).to have_key(:description)
+      expect(item[:attributes][:description]).to be_a String 
 
-      expect(item).to have_key(:unit_price)
-      expect(item[:unit_price]).to be_a Float
+      expect(item[:attributes]).to have_key(:unit_price)
+      expect(item[:attributes][:unit_price]).to be_a Float
 
-      expect(item).to have_key(:merchant_id)
-      expect(item[:merchant_id]).to be_an Integer
+      expect(item[:attributes]).to have_key(:merchant_id)
+      expect(item[:attributes][:merchant_id]).to be_an Integer
     end 
   end
 
@@ -39,20 +41,23 @@ RSpec.describe 'Items API' do
 
     expect(response).to be_successful
 
-    expect(item).to have_key(:id)
-    expect(item[:id]).to be_an Integer 
+    item_data = item[:data]
+    item_attributes = item[:data][:attributes]
 
-    expect(item).to have_key(:name)
-    expect(item[:name]).to be_a String 
+    expect(item_data).to have_key(:id)
+    expect(item_data[:id]).to be_a String 
 
-    expect(item).to have_key(:description)
-    expect(item[:description]).to be_a String 
+    expect(item_attributes).to have_key(:name)
+    expect(item_attributes[:name]).to be_a String 
 
-    expect(item).to have_key(:unit_price)
-    expect(item[:unit_price]).to be_a Float
+    expect(item_attributes).to have_key(:description)
+    expect(item_attributes[:description]).to be_a String 
 
-    expect(item).to have_key(:merchant_id)
-    expect(item[:merchant_id]).to be_an Integer
+    expect(item_attributes).to have_key(:unit_price)
+    expect(item_attributes[:unit_price]).to be_a Float
+
+    expect(item_attributes).to have_key(:merchant_id)
+    expect(item_attributes[:merchant_id]).to be_an Integer
   end
 
   it 'creates an Item' do 
