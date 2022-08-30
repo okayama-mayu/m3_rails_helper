@@ -134,18 +134,19 @@ RSpec.describe 'Items API' do
   end
 
   it 'deletes an Item' do 
-    create_list(:merchant, 4)
     item = create(:item)
 
+    merchant = item.merchant 
+
     expect(Item.count).to eq(1) 
-    expect(Merchant.count).to eq(4)
 
     delete "/api/v1/items/#{item.id}"
 
     expect(response).to have_http_status(204)
     expect(response).to be_successful
     expect(Item.count).to eq 0 
-    expect(Merchant.count).to eq 3 
+    expect(merchant).to eq nil 
     expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect{Merchant.find(merchant.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
 end

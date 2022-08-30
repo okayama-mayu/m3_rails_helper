@@ -1,5 +1,5 @@
 class Api::V1::ItemsController < ApplicationController 
-  before_action :set_item, only: [:show, :update]
+  before_action :set_item, only: [:show, :update, :destroy ]
 
   def index 
     # render json: Item.all 
@@ -19,6 +19,13 @@ class Api::V1::ItemsController < ApplicationController
   def update 
     @item.update!(item_params)
     item_json_response(@item)
+  end
+
+  def destroy
+    merchant = @item.merchant
+    binding.pry 
+    render json: Item.delete(params[:id])
+    head :no_content
   end
 
   private 
