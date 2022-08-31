@@ -10,4 +10,14 @@ class Item < ApplicationRecord
     where("lower(name) LIKE ?", "%#{query.downcase}%")
     .order(:name)
   end
+
+  def self.min_price(query)
+    where("unit_price >= ?", query)
+    .order(:name)
+  end
+
+  def self.max_price(query)
+    where("unit_price <= ?", query)
+    .order(:name)
+  end
 end
