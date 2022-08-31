@@ -259,7 +259,6 @@ RSpec.describe 'Items API' do
     ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 45.0, merchant_id: merchant.id)
     dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 65.0, merchant_id: merchant.id)
     bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 55.0, merchant_id: merchant.id)
-    
 
     get "/api/v1/items/find_all?max_price=50"
     
