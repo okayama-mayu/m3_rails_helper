@@ -176,7 +176,7 @@ RSpec.describe 'Items API' do
     expect(response).to have_http_status(404)
   end
 
-  it 'searches for all items matching the name' do 
+  it 'returns an empty hash for the data if no items match the name query' do 
     merchant = create(:merchant)
 
     llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
@@ -192,8 +192,25 @@ RSpec.describe 'Items API' do
 
     expect(items[:data].count).to eq 3
     
-    expect(items[:data][0][:attribtes][:name]).to eq 'ball'
-    expect(items[:data][1][:attribtes][:name]).to eq 'bell'
-    expect(items[:data][2][:attribtes][:name]).to eq 'llama'
+    expect(items[:data][0][:attributes][:name]).to eq 'Ball'
+    expect(items[:data][1][:attributes][:name]).to eq 'Bell'
+    expect(items[:data][2][:attributes][:name]).to eq 'Llama'
+  end
+
+  it 'searches for all items matching the name' do 
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+
+    get "/api/v1/items/find_all?name=nomatch"
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data]).to eq({})
   end
 end

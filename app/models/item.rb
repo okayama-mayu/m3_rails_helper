@@ -6,7 +6,7 @@ class Item < ApplicationRecord
 
   belongs_to :merchant
 
-  def self.find_matches(query)
+  def self.find_name(query)
     where("lower(name) LIKE ?", "%#{query.downcase}%")
     .order(:name)
   end

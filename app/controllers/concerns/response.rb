@@ -8,7 +8,11 @@ module Response
   end
 
   def item_json_response(object, status = :ok)
-    render json: ItemSerializer.new(object), status: status
+    if object == []
+      test = render json: "{\"data\":{}}"
+    else 
+      render json: ItemSerializer.new(object), status: status
+    end
   end
 
   def error_response(message, status)

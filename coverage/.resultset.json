@@ -1,40 +1,6 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/models/item.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          null,
-          1,
-          0,
-          null,
-          null,
-          null,
-          1,
-          0,
-          null,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/models/application_record.rb": {
-        "lines": [
-          1,
-          1,
-          null
-        ]
-      },
       "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/models/merchant.rb": {
         "lines": [
           1,
@@ -59,6 +25,102 @@
           null
         ]
       },
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/models/item.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/api/v1/items/search_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/concerns/response.rb": {
+        "lines": [
+          1,
+          1,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          0,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/concerns/exception_handler.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
       "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/serializers/merchant_serializer.rb": {
         "lines": [
           0,
@@ -74,16 +136,6 @@
           0,
           0,
           null,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/application_controller.rb": {
-        "lines": [
-          0,
-          0,
           0,
           0
         ],
@@ -204,60 +256,8 @@
         ],
         "branches": {
         }
-      },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/api/v1/items/search_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/concerns/exception_handler.rb": {
-        "lines": [
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/concerns/response.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
       }
     },
-    "timestamp": 1661981428
+    "timestamp": 1661984862
   }
 }

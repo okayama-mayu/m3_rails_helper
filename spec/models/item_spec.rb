@@ -21,7 +21,7 @@ RSpec.describe Item, type: :model do
       bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
       dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
 
-      expect(Item.find_matches('ll')).to eq([ball, bell, llama])
+      expect(Item.find_name('ll')).to eq([ball, bell, llama])
     end
 
     it 'returns a list of Items matching a minimum price query in alpha order' do 
