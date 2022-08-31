@@ -103,6 +103,5 @@ describe 'Merchants API' do
     get "/api/v1/merchants/#{merchant.id + 50}/items"
 
     expect(response).to have_http_status(404)
-    end 
   end 
 end
