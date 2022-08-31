@@ -5,4 +5,9 @@ class Item < ApplicationRecord
   validates :unit_price, numericality: true 
 
   belongs_to :merchant
+
+  def self.find_matches(query)
+    where("lower(name) LIKE ?", "%#{query.downcase}%")
+    .order(:name)
+  end
 end

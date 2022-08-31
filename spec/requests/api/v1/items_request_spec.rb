@@ -177,10 +177,12 @@ RSpec.describe 'Items API' do
   end
 
   it 'searches for all items matching the name' do 
-    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 5.0)
-    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 5.0)
-    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 5.0)
-    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 5.0)
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
 
     get "/api/v1/items/find_all?name=ll"
     
