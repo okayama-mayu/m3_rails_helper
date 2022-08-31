@@ -53,4 +53,26 @@ describe 'Merchants API' do
 
     expect(response).to have_http_status(404)
   end
+
+  it 'returns all Items for a given Merchant id' do 
+    merchant = create(:merchant)
+    item_1 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+    item_2 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+    item_3 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+
+    merchant_2 = create(:merchant)
+    item_4 = merchant_2.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+
+    get "/api/v1/merchants/#{merchant.id}/items"
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    items_data = items[:data]
+
+    expect(items_data.count).to eq 3 
+    expect(items_data).to include(item_1)
+    expect(items_data).to include(item_2)
+    expect(items_data).to include(item_3)
+    expect(items_data).not_to include(item_4)
+  end
 end
