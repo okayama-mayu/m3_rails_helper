@@ -90,7 +90,7 @@
         "lines": [
           1,
           1,
-          2,
+          3,
           null,
           null,
           1,
@@ -129,6 +129,26 @@
           null
         ]
       },
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/api/v1/item_merchant_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/serializers/merchant_serializer.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null
+        ]
+      },
       "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/api/v1/merchants_controller.rb": {
         "lines": [
           1,
@@ -155,15 +175,6 @@
           null
         ]
       },
-      "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/serializers/merchant_serializer.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          1,
-          null
-        ]
-      },
       "/Users/mayutakeda/turing/3mod/projects/rails-engine/app/controllers/api/v1/merchant_items_controller.rb": {
         "lines": [
           1,
@@ -176,6 +187,6 @@
         ]
       }
     },
-    "timestamp": 1661907299
+    "timestamp": 1661908289
   }
 }
