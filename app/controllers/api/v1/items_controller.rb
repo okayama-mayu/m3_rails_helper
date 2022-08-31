@@ -23,8 +23,8 @@ class Api::V1::ItemsController < ApplicationController
 
   def destroy
     merchant = @item.merchant
-    binding.pry 
     render json: Item.delete(params[:id])
+    merchant.check_dependent_destroy
     head :no_content
   end
 

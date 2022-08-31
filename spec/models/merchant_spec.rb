@@ -24,7 +24,6 @@ RSpec.describe Merchant, type: :model do
       create_list(:merchant, 2)
       item = create(:item)
       merchant = item.merchant 
-      binding.pry 
 
       expect(Merchant.count).to eq 3
 
