@@ -53,4 +53,55 @@ describe 'Merchants API' do
 
     expect(response).to have_http_status(404)
   end
+
+  it 'returns all Items for a given Merchant id' do 
+    merchant = create(:merchant)
+    item_1 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+    item_2 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+    item_3 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+
+    merchant_2 = create(:merchant)
+    item_4 = merchant_2.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+
+    get "/api/v1/merchants/#{merchant.id}/items"
+
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    items_data = items[:data]
+
+    expect(items_data.count).to eq 3 
+    
+    items_data.each do |item|
+      expect(item).to have_key(:id)
+      expect(item[:id]).to be_a String 
+
+      expect(item[:attributes]).to have_key(:name)
+      expect(item[:attributes][:name]).to be_a String 
+
+      expect(item[:attributes]).to have_key(:description)
+      expect(item[:attributes][:description]).to be_a String 
+
+      expect(item[:attributes]).to have_key(:unit_price)
+      expect(item[:attributes][:unit_price]).to be_a Float
+
+      expect(item[:attributes]).to have_key(:merchant_id)
+      expect(item[:attributes][:merchant_id]).to eq merchant.id
+    end 
+  end 
+  
+  it 'returns a 404 if Merchant is not found' do 
+    merchant = create(:merchant)
+    item_1 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+    item_2 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+    item_3 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+
+    merchant_2 = create(:merchant)
+    item_4 = merchant_2.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+
+    get "/api/v1/merchants/#{merchant.id + 50}/items"
+
+    expect(response).to have_http_status(404)
+  end 
 end
