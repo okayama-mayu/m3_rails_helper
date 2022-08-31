@@ -70,9 +70,22 @@ describe 'Merchants API' do
     items_data = items[:data]
 
     expect(items_data.count).to eq 3 
-    expect(items_data).to include(item_1)
-    expect(items_data).to include(item_2)
-    expect(items_data).to include(item_3)
-    expect(items_data).not_to include(item_4)
-  end
+    
+    items_data.each do |item|
+      expect(item).to have_key(:id)
+      expect(item[:id]).to be_a String 
+
+      expect(item[:attributes]).to have_key(:name)
+      expect(item[:attributes][:name]).to be_a String 
+
+      expect(item[:attributes]).to have_key(:description)
+      expect(item[:attributes][:description]).to be_a String 
+
+      expect(item[:attributes]).to have_key(:unit_price)
+      expect(item[:attributes][:unit_price]).to be_a Float
+
+      expect(item[:attributes]).to have_key(:merchant_id)
+      expect(item[:attributes][:merchant_id]).to eq merchant.id
+    end 
+  end 
 end
