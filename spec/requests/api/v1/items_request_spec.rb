@@ -167,4 +167,12 @@ RSpec.describe 'Items API' do
     expect(merchant_data[:attributes]).to have_key(:name)
     expect(merchant_data[:attributes][:name]).to eq merchant.name 
   end
+
+  it 'returns a 404 if the Item is not found' do 
+    item = create(:item) 
+
+    get "/api/v1/items/#{item.id}/merchant"
+
+    expect(response).to have_http_status(404)
+  end
 end
