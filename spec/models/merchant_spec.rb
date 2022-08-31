@@ -43,5 +43,15 @@ RSpec.describe Merchant, type: :model do
 
       expect(Merchant.all.find_matches("Jo")).to eq [darrel, joe, john, jolene]
     end
+
+    it 'returns a single Merchant from the search' do 
+      john = Merchant.create!(name: 'John Doe')
+      joe = Merchant.create!(name: 'Joe Manchin')
+      jolene = Merchant.create!(name: 'Jolene Smith')
+      darrel = Merchant.create!(name: 'Darrel Farjo')
+      priyanka = Merchant.create!(name: 'Priyanka Chopra')
+
+      expect(Merchant.all.find_merchant("Jo")).to eq darrel
+    end
   end
 end
