@@ -55,5 +55,6 @@ RSpec.describe Item, type: :model do
       bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 75.0, merchant_id: merchant.id)
 
       expect(Item.min_max(50, 70)).to eq([ball, dress])
+    end 
   end
 end

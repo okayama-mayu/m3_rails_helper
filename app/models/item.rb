@@ -20,4 +20,10 @@ class Item < ApplicationRecord
     where("unit_price <= ?", query)
     .order(:name)
   end
+
+  def self.min_max(min, max)
+    where("unit_price >= ?", min)
+    .where("unit_price <= ?", max)
+    .order(:name)
+  end
 end
