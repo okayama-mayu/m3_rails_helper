@@ -65,6 +65,8 @@ describe 'Merchants API' do
 
     get "/api/v1/merchants/#{merchant.id}/items"
 
+    expect(response).to be_successful
+
     items = JSON.parse(response.body, symbolize_names: true)
 
     items_data = items[:data]
@@ -86,6 +88,21 @@ describe 'Merchants API' do
 
       expect(item[:attributes]).to have_key(:merchant_id)
       expect(item[:attributes][:merchant_id]).to eq merchant.id
+    end 
+  end 
+  
+  it 'returns a 404 if Merchant is not found' do 
+    merchant = create(:merchant)
+    item_1 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+    item_2 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+    item_3 = merchant.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+
+    merchant_2 = create(:merchant)
+    item_4 = merchant_2.items.create!(name: Faker::Device.model_name, description: Faker::Lorem.sentence, unit_price: Faker::Commerce.price)
+
+    get "/api/v1/merchants/#{merchant.id + 50}/items"
+
+    expect(response).to have_http_status(404)
     end 
   end 
 end
