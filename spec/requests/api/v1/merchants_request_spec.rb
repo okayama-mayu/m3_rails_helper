@@ -104,4 +104,26 @@ describe 'Merchants API' do
 
     expect(response).to have_http_status(404)
   end 
+
+  it 'finds a single merchant which matches a search term' do 
+    john = Merchant.create!(name: 'John Doe')
+    joe = Merchant.create!(name: 'Joe Manchin')
+    jolene = Merchant.create!(name: 'Jolene Smith')
+    darrel = Merchant.create!(name: 'Darrel Jones')
+    priyanka = Merchant.create!(name: 'Priyanka Farjo')
+
+    get "/api/v1/merchants/find?name=jo"
+
+    merchant = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to be_successful 
+
+    merchant_data = merchant[:data]
+
+    expect(merchant_data).to have_key(:id) 
+    expect(merchant_data[:id]).to eq darrel.id.to_s
+
+    expect(merchant[:data][:attributes]).to have_key(:name)
+    expect(merchant_data[:attributes][:name]).to eq darrel.name 
+  end
 end
