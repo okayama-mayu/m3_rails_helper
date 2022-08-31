@@ -126,4 +126,22 @@ describe 'Merchants API' do
     expect(merchant[:data][:attributes]).to have_key(:name)
     expect(merchant_data[:attributes][:name]).to eq darrel.name 
   end
+
+  it 'freturns a hash with value of nil if Merchant is not found' do 
+    john = Merchant.create!(name: 'John Doe')
+    joe = Merchant.create!(name: 'Joe Manchin')
+    jolene = Merchant.create!(name: 'Jolene Smith')
+    darrel = Merchant.create!(name: 'Darrel Jones')
+    priyanka = Merchant.create!(name: 'Priyanka Chopra')
+
+    get "/api/v1/merchants/find?name=cat"
+
+    expect(response).to be_successful 
+
+    merchant = JSON.parse(response.body, symbolize_names: true)
+
+    merchant_data = merchant[:data]
+
+    expect(merchant_data).to eq nil 
+  end
 end
