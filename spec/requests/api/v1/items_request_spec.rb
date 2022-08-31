@@ -176,7 +176,7 @@ RSpec.describe 'Items API' do
     expect(response).to have_http_status(404)
   end
 
-  it 'returns an empty hash for the data if no items match the name query' do 
+  it 'searches for all items matching the name' do 
     merchant = create(:merchant)
 
     llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
@@ -197,7 +197,7 @@ RSpec.describe 'Items API' do
     expect(items[:data][2][:attributes][:name]).to eq 'Llama'
   end
 
-  it 'searches for all items matching the name' do 
+  it 'returns an empty hash for the data if no items match the name query' do 
     merchant = create(:merchant)
 
     llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
@@ -212,5 +212,26 @@ RSpec.describe 'Items API' do
     items = JSON.parse(response.body, symbolize_names: true)
 
     expect(items[:data]).to eq({})
+  end
+
+  it 'searches for all items matching the minimum price' do 
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 45.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 65.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 55.0, merchant_id: merchant.id)
+    
+
+    get "/api/v1/items/find_all?min_price=50"
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data].count).to eq 2
+    
+    expect(items[:data][0][:attributes][:name]).to eq 'Bell'
+    expect(items[:data][1][:attributes][:name]).to eq 'Dress'
   end
 end
