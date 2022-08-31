@@ -8,4 +8,8 @@ class Merchant < ApplicationRecord
       self.destroy 
     end 
   end
+
+  def self.find_matches(query)
+    Merchant.where("lower(name) LIKE ?", "%#{query.downcase}%").order(:name)
+  end
 end

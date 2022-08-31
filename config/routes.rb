@@ -9,4 +9,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  get "/api/v1/merchants/find", to: 'merchants#find'
 end

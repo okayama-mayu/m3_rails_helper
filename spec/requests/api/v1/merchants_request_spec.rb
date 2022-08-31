@@ -110,7 +110,7 @@ describe 'Merchants API' do
     joe = Merchant.create!(name: 'Joe Manchin')
     jolene = Merchant.create!(name: 'Jolene Smith')
     darrel = Merchant.create!(name: 'Darrel Jones')
-    priyanka = Merchant.create!(name: 'Priyanka Farjo')
+    priyanka = Merchant.create!(name: 'Priyanka Chopra')
 
     get "/api/v1/merchants/find?name=jo"
 
