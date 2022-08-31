@@ -45,5 +45,15 @@ RSpec.describe Item, type: :model do
 
       expect(Item.max_price(10)).to eq([ball, llama])
     end
+
+    it 'returns a list of Items matching a minimum AND maximum price query in alpha order' do 
+      merchant = create(:merchant)
+
+      llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 40.0, merchant_id: merchant.id)
+      ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 50.0, merchant_id: merchant.id)
+      dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 65.0, merchant_id: merchant.id)
+      bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 75.0, merchant_id: merchant.id)
+
+      expect(Item.min_max(50, 70)).to eq([ball, dress])
   end
 end
