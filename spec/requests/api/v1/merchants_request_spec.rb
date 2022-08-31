@@ -136,12 +136,12 @@ describe 'Merchants API' do
 
     get "/api/v1/merchants/find?name=cat"
 
-    expect(response).to be_successful 
+    expect(response).to be_successful
 
     merchant = JSON.parse(response.body, symbolize_names: true)
 
     merchant_data = merchant[:data]
 
-    expect(merchant_data).to eq nil 
+    expect(merchant_data).to eq({})
   end
 end
