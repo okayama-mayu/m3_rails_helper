@@ -171,7 +171,7 @@ RSpec.describe 'Items API' do
   it 'returns a 404 if the Item is not found' do 
     item = create(:item) 
 
-    get "/api/v1/items/#{item.id}/merchant"
+    get "/api/v1/items/#{item.id + 50}/merchant"
 
     expect(response).to have_http_status(404)
   end
