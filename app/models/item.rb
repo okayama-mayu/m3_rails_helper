@@ -38,4 +38,11 @@ class Item < ApplicationRecord
       i.items.count == 1 
     end
   end
+
+  def delete_single_item_invoices
+    single_item_invoice.each do |invoice| 
+      delete_invoice_items
+      invoice.delete 
+    end 
+  end
 end

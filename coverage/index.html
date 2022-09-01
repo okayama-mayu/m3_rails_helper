@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-09-01T17:27:04-04:00">2022-09-01T17:27:04-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-09-01T17:41:13-04:00">2022-09-01T17:41:13-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  19.55%
+  21.86%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.21
+         0.28
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>179</b> relevant lines,
-    <span class="green"><b>35</b> lines covered</span> and
-    <span class="red"><b>144</b> lines missed. </span>
+    <b>183</b> relevant lines,
+    <span class="green"><b>40</b> lines covered</span> and
+    <span class="red"><b>143</b> lines missed. </span>
     (<span class="red">
-  19.55%
+  21.86%
 </span>
 )
   </div>
@@ -215,12 +215,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#638812a0aa47646ca4dbbb8376ac70d3bb8e8a71" class="src_link" title="app/models/item.rb">app/models/item.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">76.19 %</td>
-            <td class="cell--number">41</td>
+            <td class="yellow strong cell--number t-file__coverage">84.00 %</td>
+            <td class="cell--number">48</td>
+            <td class="cell--number">25</td>
             <td class="cell--number">21</td>
-            <td class="cell--number">16</td>
-            <td class="cell--number">5</td>
-            <td class="cell--number">0.86</td>
+            <td class="cell--number">4</td>
+            <td class="cell--number">1.28</td>
             
           </tr>
         
@@ -484,14 +484,14 @@
     <span class="group_name">Models</span>
     (<span class="covered_percent">
       <span class="red">
-  74.47%
+  78.43%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
-       <span class="red">
-         0.79
+       <span class="yellow">
+         1.0
        </span>
     </span> hits/line
     )
@@ -504,11 +504,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>47</b> relevant lines,
-    <span class="green"><b>35</b> lines covered</span> and
-    <span class="red"><b>12</b> lines missed. </span>
+    <b>51</b> relevant lines,
+    <span class="green"><b>40</b> lines covered</span> and
+    <span class="red"><b>11</b> lines missed. </span>
     (<span class="red">
-  74.47%
+  78.43%
 </span>
 )
   </div>
@@ -577,12 +577,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#638812a0aa47646ca4dbbb8376ac70d3bb8e8a71" class="src_link" title="app/models/item.rb">app/models/item.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">76.19 %</td>
-            <td class="cell--number">41</td>
+            <td class="yellow strong cell--number t-file__coverage">84.00 %</td>
+            <td class="cell--number">48</td>
+            <td class="cell--number">25</td>
             <td class="cell--number">21</td>
-            <td class="cell--number">16</td>
-            <td class="cell--number">5</td>
-            <td class="cell--number">0.86</td>
+            <td class="cell--number">4</td>
+            <td class="cell--number">1.28</td>
             
           </tr>
         
@@ -3092,7 +3092,7 @@
 
             
 
-            <code class="ruby">  has_many :invoice_items, dependent: :destroy </code>
+            <code class="ruby">  has_many :invoice_items, dependent: :delete_all </code>
           </li>
         </div>
       
@@ -3323,8 +3323,8 @@
   <div class="header">
     <h3>app/models/item.rb</h3>
     <h4>
-      <span class="red">
-  76.19%
+      <span class="yellow">
+  84.0%
 </span>
 
       lines covered
@@ -3333,9 +3333,9 @@
     
 
     <div class="t-line-summary">
-      <b>21</b> relevant lines.
-      <span class="green"><b>16</b> lines covered</span> and
-      <span class="red"><b>5</b> lines missed.</span>
+      <b>25</b> relevant lines.
+      <span class="green"><b>21</b> lines covered</span> and
+      <span class="red"><b>4</b> lines missed.</span>
     </div>
 
     
@@ -3698,8 +3698,8 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="33">
-            
+          <li class="covered" data-hits="8" data-linenumber="33">
+            <span class="hits">8</span>
             
 
             
@@ -3787,6 +3787,83 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="41">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="42">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def delete_single_item_invoices</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="43">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    single_item_invoice.each do |invoice| </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="44">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">      delete_invoice_items</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="45">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">      invoice.delete </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="46">
+            
+            
+
+            
+
+            <code class="ruby">    end </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="47">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="48">
             
             
 
