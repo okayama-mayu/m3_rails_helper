@@ -180,7 +180,7 @@ RSpec.describe 'Items API' do
     expect(InvoiceItem.count).to eq(1)
     expect(Invoice.find(invoice.id)).to eq invoice
     expect{InvoiceItem.find(invoice_item_1.id)}.to raise_error(ActiveRecord::RecordNotFound)
-    expect(Invoice.find(invoice_item_2.id)).to eq invoice_item_2
+    expect(InvoiceItem.find(invoice_item_2.id)).to eq invoice_item_2
   end
 
   it 'returns a Merchant given Item ID' do 
