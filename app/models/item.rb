@@ -28,4 +28,14 @@ class Item < ApplicationRecord
     .where("unit_price <= ?", max)
     .order(:name)
   end
+
+  def delete_invoice_items
+    invoice_items.each { |ii| ii.delete }
+  end
+
+  def single_item_invoice
+    invoices.select do |i| 
+      i.items.count == 1 
+    end
+  end
 end

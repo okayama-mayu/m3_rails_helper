@@ -8,4 +8,8 @@ class Invoice < ApplicationRecord
       self.destroy 
     end
   end
+
+  def single_item? 
+    items.count == 1 
+  end
 end
