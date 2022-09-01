@@ -22,9 +22,12 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def destroy
-    merchant = @item.merchant
-    render json: Item.delete(params[:id])
-    merchant.check_dependent_destroy
+    # check if Item is the only one on each Invoice 
+    # if true, delete the Invoice and associated InvoiceItems
+    @item.delete_single_item_invoices
+    # destroy all InvoiceItems associated with the Item across all Invoices 
+    @item.delete_invoice_items
+    render json: Item.destroy(params[:id])
     head :no_content
   end
 

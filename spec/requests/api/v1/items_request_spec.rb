@@ -133,20 +133,54 @@ RSpec.describe 'Items API' do
     expect(response).to have_http_status(404)
   end
 
-  it 'deletes an Item' do 
-    item = create(:item)
-
-    merchant = item.merchant 
+  it 'deletes an Item and deletes the associated Invoice if it has no other Items' do 
+    customer = Customer.create!(first_name: 'Carlos', last_name: 'Stich')
+    merchant = create(:merchant)
+    invoice = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+    item = merchant.items.create!(name: 'phone', description: 'abc', unit_price: 5.0)
+    invoice_item = InvoiceItem.create!(item_id: item.id, invoice_id: invoice.id, quantity: 2, unit_price: 5.0)
 
     expect(Item.count).to eq(1) 
+    expect(Invoice.count).to eq(1)
+    expect(InvoiceItem.count).to eq(1)
 
     delete "/api/v1/items/#{item.id}"
 
     expect(response).to have_http_status(204)
     expect(response).to be_successful
     expect(Item.count).to eq 0 
+    expect(Invoice.count).to eq(0)
+    expect(InvoiceItem.count).to eq(0)
     expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
-    expect{Merchant.find(merchant.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect{Invoice.find(invoice.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect{InvoiceItem.find(invoice_item.id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
+  it 'deletes an Item but does NOT delete the associated Invoice if it has other Items' do 
+    customer = Customer.create!(first_name: 'Carlos', last_name: 'Stich')
+    merchant = create(:merchant)
+    invoice = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+    
+    item_1 = merchant.items.create!(name: 'phone', description: 'abc', unit_price: 5.0)
+    item_2 = merchant.items.create!(name: 'phone2', description: 'abc', unit_price: 5.0)
+    
+    invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice.id, quantity: 2, unit_price: 5.0)
+    invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice.id, quantity: 2, unit_price: 5.0)
+
+    expect(Item.count).to eq(2) 
+    expect(Invoice.count).to eq(1)
+    expect(InvoiceItem.count).to eq(2)
+
+    delete "/api/v1/items/#{item_1.id}"
+
+    expect(response).to have_http_status(204)
+    expect(response).to be_successful
+    expect(Item.count).to eq 1
+    expect(Invoice.count).to eq(1)
+    expect(InvoiceItem.count).to eq(1)
+    expect(Invoice.find(invoice.id)).to eq invoice
+    expect{InvoiceItem.find(invoice_item_1.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect(InvoiceItem.find(invoice_item_2.id)).to eq invoice_item_2
   end
 
   it 'returns a Merchant given Item ID' do 

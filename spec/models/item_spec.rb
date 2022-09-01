@@ -10,6 +10,64 @@ RSpec.describe Item, type: :model do
 
   describe 'relationships' do 
     it { should belong_to :merchant }
+    it { should have_many :invoice_items }
+    it { should have_many(:invoices).through(:invoice_items)}
+  end
+
+  describe 'instance methods' do 
+    it 'deletes associated Invoice Items' do 
+      customer = Customer.create!(first_name: 'Carlos', last_name: 'Stich')
+      merchant = create(:merchant)
+      invoice_1 = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+      invoice_2 = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+      item_1 = merchant.items.create!(name: 'phone', description: 'abc', unit_price: 5.0)
+      item_2 = merchant.items.create!(name: 'phone2', description: 'abc', unit_price: 5.0)
+      invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, quantity: 2, unit_price: 5.0)
+      invoice_item_2 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_2.id, quantity: 2, unit_price: 5.0)
+
+      item_1.delete_invoice_items 
+
+      expect(InvoiceItem.count).to eq 0 
+      expect{InvoiceItem.find(invoice_item_1.id)}.to raise_error(ActiveRecord::RecordNotFound)
+      expect{InvoiceItem.find(invoice_item_2.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    end
+    
+    it 'returns an array of Invoices with no other Items' do 
+      customer = Customer.create!(first_name: 'Carlos', last_name: 'Stich')
+      merchant = create(:merchant)
+      invoice_1 = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+      invoice_2 = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+      invoice_3 = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+      item_1 = merchant.items.create!(name: 'phone', description: 'abc', unit_price: 5.0)
+      item_2 = merchant.items.create!(name: 'phone2', description: 'abc', unit_price: 5.0)
+      invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, quantity: 2, unit_price: 5.0)
+      invoice_item_2 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_2.id, quantity: 2, unit_price: 5.0)
+      invoice_item_3a = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_3.id, quantity: 2, unit_price: 5.0)
+      invoice_item_3b = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice_3.id, quantity: 2, unit_price: 5.0)
+
+      expect(item_1.single_item_invoice).to eq([invoice_1, invoice_2])
+    end
+
+    it 'deletes Invoices associated with an Item that have no other Items on them' do 
+      customer = Customer.create!(first_name: 'Carlos', last_name: 'Stich')
+      merchant = create(:merchant)
+      invoice_1 = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+      invoice_2 = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+      invoice_3 = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+      item_1 = merchant.items.create!(name: 'phone', description: 'abc', unit_price: 5.0)
+      item_2 = merchant.items.create!(name: 'phone2', description: 'abc', unit_price: 5.0)
+      invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, quantity: 2, unit_price: 5.0)
+      invoice_item_2 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_2.id, quantity: 2, unit_price: 5.0)
+      invoice_item_3a = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_3.id, quantity: 2, unit_price: 5.0)
+      invoice_item_3b = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice_3.id, quantity: 2, unit_price: 5.0)
+
+      item_1.delete_single_item_invoices
+
+      expect(Invoice.count).to eq 1 
+      expect{Invoice.find(invoice_1.id)}.to raise_error(ActiveRecord::RecordNotFound)
+      expect{Invoice.find(invoice_2.id)}.to raise_error(ActiveRecord::RecordNotFound)
+      expect(Invoice.find(invoice_3.id)).to eq invoice_3
+    end
   end
 
   describe 'class methods' do 
