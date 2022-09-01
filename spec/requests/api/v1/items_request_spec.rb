@@ -335,7 +335,9 @@ RSpec.describe 'Items API' do
     bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 55.0, merchant_id: merchant.id)
 
     get "/api/v1/items/find_all?name=ll&min_price=70"
+    expect(response).to have_http_status(404)
 
+    get "/api/v1/items/find_all?name=ll&max_price=50"
     expect(response).to have_http_status(404)
   end
 end
