@@ -1,6 +1,8 @@
 class Api::V1::Items::SearchController < ApplicationController
   def index 
-    if params[:name]
+    if (params.has_key?(:name)) && (params.has_key?(:min_price)) 
+      raise ActiveRecord::RecordInvalid.new
+    elsif params[:name]
       items = Item.find_name(params[:name])
     elsif params[:min_price] && params[:max_price]
       items = Item.min_max(params[:min_price], params[:max_price])
