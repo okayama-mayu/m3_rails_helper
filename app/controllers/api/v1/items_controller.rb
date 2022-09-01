@@ -25,7 +25,7 @@ class Api::V1::ItemsController < ApplicationController
     # check if Item is the only one on each Invoice 
     # if true, delete the Invoice and associated InvoiceItems
     @item.delete_single_item_invoices
-    # destroy all InvoiceItems associated with the Item
+    # destroy all InvoiceItems associated with the Item across all Invoices 
     @item.delete_invoice_items
     render json: Item.destroy(params[:id])
     head :no_content
