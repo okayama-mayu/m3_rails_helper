@@ -9,7 +9,7 @@ module Response
 
   def item_json_response(object, status = :ok)
     if object == []
-      test = render json: "{\"data\":{}}"
+      test = render json: "{\"data\":[]}"
     else 
       render json: ItemSerializer.new(object), status: status
     end

@@ -197,7 +197,7 @@ RSpec.describe 'Items API' do
     expect(items[:data][2][:attributes][:name]).to eq 'Llama'
   end
 
-  it 'returns an empty hash for the data if no items match the name query' do 
+  it 'returns an empty array for the data if no items match the name query' do 
     merchant = create(:merchant)
 
     llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
@@ -211,7 +211,7 @@ RSpec.describe 'Items API' do
 
     items = JSON.parse(response.body, symbolize_names: true)
 
-    expect(items[:data]).to eq({})
+    expect(items[:data]).to eq([])
   end
 
   it 'searches for all items matching the minimum price' do 
@@ -235,7 +235,7 @@ RSpec.describe 'Items API' do
     expect(items[:data][1][:attributes][:name]).to eq 'Dress'
   end
 
-  it 'returns empty hash if min price does not match any Items' do 
+  it 'returns empty array if min price does not match any Items' do 
     merchant = create(:merchant)
 
     llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
@@ -249,7 +249,7 @@ RSpec.describe 'Items API' do
 
     items = JSON.parse(response.body, symbolize_names: true)
 
-    expect(items[:data]).to eq({})
+    expect(items[:data]).to eq([])
   end
 
   it 'searches for all Items matching max price' do 
@@ -272,7 +272,7 @@ RSpec.describe 'Items API' do
     expect(items[:data][1][:attributes][:name]).to eq 'Llama'
   end
 
-  it 'returns empty hash if max price does not match any Items' do 
+  it 'returns empty array if max price does not match any Items' do 
     merchant = create(:merchant)
 
     llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
@@ -286,7 +286,7 @@ RSpec.describe 'Items API' do
 
     items = JSON.parse(response.body, symbolize_names: true)
 
-    expect(items[:data]).to eq({})
+    expect(items[:data]).to eq([])
   end
 
   it 'searches for all Items matching min AND max price' do 
@@ -309,7 +309,7 @@ RSpec.describe 'Items API' do
     expect(items[:data][1][:attributes][:name]).to eq 'Bell'
   end
 
-  it 'returns empty hash if min && max price does not match any Items' do 
+  it 'returns empty array if min && max price does not match any Items' do 
     merchant = create(:merchant)
 
     llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
@@ -323,7 +323,7 @@ RSpec.describe 'Items API' do
 
     items = JSON.parse(response.body, symbolize_names: true)
 
-    expect(items[:data]).to eq({})
+    expect(items[:data]).to eq([])
   end
 
   it 'returns an error if the endpoint calls on name and min and/or max price' do 
