@@ -12,11 +12,16 @@ RSpec.describe Invoice, type: :model do
       customer = Customer.create!(first_name: 'Carlos', last_name: 'Stich')
       merchant = create(:merchant)
       invoice = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+      item = merchant.items.create!(name: 'phone', description: 'abc', unit_price: 5.0)
+      invoice_item = InvoiceItem.create!(item_id: item.id, invoice_id: invoice.id, quantity: 2, unit_price: 5.0)
+
+      item.destroy 
 
       invoice.check_dependent_destroy 
 
       expect(Invoice.count).to eq 0 
       expect{Invoice.find(invoice.id)}.to raise_error(ActiveRecord::RecordNotFound)
+      expect{InvoiceItem.find(invoice_item.id)}.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     xit 'does not delete the Invoice if it has an Item' do 
