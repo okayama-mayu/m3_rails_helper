@@ -326,7 +326,7 @@ RSpec.describe 'Items API' do
     expect(items[:data]).to eq({})
   end
 
-  it 'returns an error if the endpoint calls on name and min price' do 
+  it 'returns an error if the endpoint calls on name and min and/or max price' do 
     merchant = create(:merchant)
 
     llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
@@ -338,6 +338,9 @@ RSpec.describe 'Items API' do
     expect(response).to have_http_status(404)
 
     get "/api/v1/items/find_all?name=ll&max_price=50"
+    expect(response).to have_http_status(404)
+
+    get "/api/v1/items/find_all?name=ll&min_price =70&max_price=50"
     expect(response).to have_http_status(404)
   end
 end
