@@ -22,9 +22,9 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def destroy
-    invoice = @item.invoice
-    render json: Item.delete(params[:id])
-    invoice.check_dependent_destroy
+    invoices = @item.invoices 
+    invoices[0].check_dependent_destroy
+    render json: Item.destroy(params[:id])
     head :no_content
   end
 
