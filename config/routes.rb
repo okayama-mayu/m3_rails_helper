@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     namespace :v1 do 
       resources :merchants, only: [:index, :show] do 
         resources :items, only: [:index], :controller => 'merchant_items'
-        # resources :search, only: [:show], :controller => 'search'
       end
       
       resources :items, only: [:index, :show, :create, :update, :destroy] do 
