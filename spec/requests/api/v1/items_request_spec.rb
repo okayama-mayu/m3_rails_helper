@@ -175,4 +175,172 @@ RSpec.describe 'Items API' do
 
     expect(response).to have_http_status(404)
   end
+
+  it 'searches for all items matching the name' do 
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+
+    get "/api/v1/items/find_all?name=ll"
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data].count).to eq 3
+    
+    expect(items[:data][0][:attributes][:name]).to eq 'Ball'
+    expect(items[:data][1][:attributes][:name]).to eq 'Bell'
+    expect(items[:data][2][:attributes][:name]).to eq 'Llama'
+  end
+
+  it 'returns an empty array for the data if no items match the name query' do 
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 5.0, merchant_id: merchant.id)
+
+    get "/api/v1/items/find_all?name=nomatch"
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data]).to eq([])
+  end
+
+  it 'searches for all items matching the minimum price' do 
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 45.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 65.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 55.0, merchant_id: merchant.id)
+    
+
+    get "/api/v1/items/find_all?min_price=50"
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data].count).to eq 2
+    
+    expect(items[:data][0][:attributes][:name]).to eq 'Bell'
+    expect(items[:data][1][:attributes][:name]).to eq 'Dress'
+  end
+
+  it 'returns empty array if min price does not match any Items' do 
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 45.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 65.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 55.0, merchant_id: merchant.id)
+
+    get "/api/v1/items/find_all?min_price=100"
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data]).to eq([])
+  end
+
+  it 'searches for all Items matching max price' do 
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 45.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 65.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 55.0, merchant_id: merchant.id)
+
+    get "/api/v1/items/find_all?max_price=50"
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data].count).to eq 2
+    
+    expect(items[:data][0][:attributes][:name]).to eq 'Ball'
+    expect(items[:data][1][:attributes][:name]).to eq 'Llama'
+  end
+
+  it 'returns empty array if max price does not match any Items' do 
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 45.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 65.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 55.0, merchant_id: merchant.id)
+
+    get "/api/v1/items/find_all?max_price=10"
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data]).to eq([])
+  end
+
+  it 'searches for all Items matching min AND max price' do 
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 45.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 65.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 55.0, merchant_id: merchant.id)
+
+    get "/api/v1/items/find_all?min_price=40&max_price=60"
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data].count).to eq 2
+    
+    expect(items[:data][0][:attributes][:name]).to eq 'Ball'
+    expect(items[:data][1][:attributes][:name]).to eq 'Bell'
+  end
+
+  it 'returns empty array if min && max price does not match any Items' do 
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 45.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 65.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 55.0, merchant_id: merchant.id)
+
+    get "/api/v1/items/find_all?min_price=70&max_price=100"
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data]).to eq([])
+  end
+
+  it 'returns an error if the endpoint calls on name and min and/or max price' do 
+    merchant = create(:merchant)
+
+    llama = Item.create!(name: 'Llama', description: 'abc', unit_price: 35.0, merchant_id: merchant.id)
+    ball = Item.create!(name: 'Ball', description: 'abc', unit_price: 45.0, merchant_id: merchant.id)
+    dress = Item.create!(name: 'Dress', description: 'abc', unit_price: 65.0, merchant_id: merchant.id)
+    bell = Item.create!(name: 'Bell', description: 'abc', unit_price: 55.0, merchant_id: merchant.id)
+
+    get "/api/v1/items/find_all?name=ll&min_price=70"
+    expect(response).to have_http_status(404)
+
+    get "/api/v1/items/find_all?name=ll&max_price=50"
+    expect(response).to have_http_status(404)
+
+    get "/api/v1/items/find_all?name=ll&min_price =70&max_price=50"
+    expect(response).to have_http_status(404)
+  end
 end

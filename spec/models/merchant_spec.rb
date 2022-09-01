@@ -41,7 +41,7 @@ RSpec.describe Merchant, type: :model do
       darrel = Merchant.create!(name: 'Darrel Farjo')
       priyanka = Merchant.create!(name: 'Priyanka Chopra')
 
-      expect(Merchant.all.find_matches("Jo")).to eq [darrel, joe, john, jolene]
+      expect(Merchant.find_matches("Jo")).to eq [darrel, joe, john, jolene]
     end
 
     it 'returns a single Merchant from the search' do 
@@ -51,7 +51,7 @@ RSpec.describe Merchant, type: :model do
       darrel = Merchant.create!(name: 'Darrel Farjo')
       priyanka = Merchant.create!(name: 'Priyanka Chopra')
 
-      expect(Merchant.all.find_merchant("Jo")).to eq darrel
+      expect(Merchant.find_merchant("Jo")).to eq darrel
     end
   end
 end

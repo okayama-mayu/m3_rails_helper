@@ -127,7 +127,7 @@ describe 'Merchants API' do
     expect(merchant_data[:attributes][:name]).to eq darrel.name 
   end
 
-  it 'returns a hash with value of nil if Merchant is not found' do 
+  it 'returns an empty hash if Merchant is not found' do 
     john = Merchant.create!(name: 'John Doe')
     joe = Merchant.create!(name: 'Joe Manchin')
     jolene = Merchant.create!(name: 'Jolene Smith')
