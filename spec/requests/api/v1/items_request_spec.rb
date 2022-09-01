@@ -133,20 +133,27 @@ RSpec.describe 'Items API' do
     expect(response).to have_http_status(404)
   end
 
-  it 'deletes an Item' do 
-    item = create(:item)
-
-    merchant = item.merchant 
+  it 'deletes an Item and deletes the associated Invoice if it has no other Items' do 
+    customer = Customer.create!(first_name: 'Carlos', last_name: 'Stich')
+    merchant = create(:merchant)
+    invoice = Invoice.create!(customer_id: customer.id, merchant_id: merchant.id, status: 'pending')
+    item = merchant.items.create!(name: 'phone', description: 'abc', unit_price: 5.0)
+    invoice_item = InvoiceItem.create!(item_id: item.id, invoice_id: invoice.id, quantity: 2, unit_price: 5.0)
 
     expect(Item.count).to eq(1) 
+    expect(Invoice.count).to eq(1)
+    expect(InvoiceItem.count).to eq(1)
 
     delete "/api/v1/items/#{item.id}"
 
     expect(response).to have_http_status(204)
     expect(response).to be_successful
     expect(Item.count).to eq 0 
+    expect(Invoice.count).to eq(0)
+    expect(InvoiceItem.count).to eq(0)
     expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
-    expect{Merchant.find(merchant.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect{Invoice.find(invoice.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect{InvoiceItem.find(invoice_item.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it 'returns a Merchant given Item ID' do 
