@@ -4,7 +4,7 @@ class Merchant < ApplicationRecord
   has_many :items, dependent: :destroy 
 
   def check_dependent_destroy
-    if self.items.empty? 
+    if items.empty? 
       self.destroy 
     end 
   end

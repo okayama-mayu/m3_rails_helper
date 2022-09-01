@@ -16,7 +16,7 @@ RSpec.describe Invoice, type: :model do
       invoice.check_dependent_destroy 
 
       expect(Invoice.count).to eq 0 
-      expect{invoice.find(invoice.id)}.to raise_error(ActiveRecord::RecordNotFound)
+      expect{Invoice.find(invoice.id)}.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     xit 'does not delete the Invoice if it has an Item' do 

@@ -4,6 +4,8 @@ class Invoice < ApplicationRecord
   belongs_to :customer 
 
   def check_dependent_destroy
-
+    if items.empty?
+      self.destroy 
+    end
   end
 end
